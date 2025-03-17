@@ -102,7 +102,10 @@ export default function StakeDemo() {
       </Tabs>
 
       <div className="shadow hover:bg-primary/5 dark:bg-foreground/5 bg-white h-[340px] rounded-2xl p-4 duration-200 ease-in-out">
-        about
+        stMOVE is the liquid staked representation of MOVE tokens within the
+        Movement Vault, developed by Helix Labs. When users stake MOVE in the
+        vault, they receive stMOVE in return, maintaining liquidity while
+        earning staking rewards.
       </div>
 
       <div className="flex flex-col gap-2">

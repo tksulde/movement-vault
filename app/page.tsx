@@ -97,10 +97,12 @@ export default function Home() {
           />
         </div>
         <p className="text-muted-foreground text-lg font-light leading-6">
-          The ICP Vault is a decentralized platform that allows users to store
-          their ICP tokens in a secure and accessible manner. With the ICP
-          Vault, users can easily transfer their ICP tokens to other users,
-          enabling seamless and secure transactions.
+          Movement Vault is a next-generation liquid staking solution designed
+          for the Movement Network, enabling seamless staking, liquidity
+          provisioning, and interoperability within the Move ecosystem. Built by
+          Helix Labs, Movement Vault empowers users to stake their assets while
+          maintaining liquidity, optimizing yield generation, and enhancing
+          capital efficiency across decentralized finance (DeFi) applications.
         </p>
         <Statistics
           stats={connected ? statsWithBalance : stats}
