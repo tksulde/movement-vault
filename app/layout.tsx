@@ -4,6 +4,7 @@ import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
 
 import { Toaster } from "@/app/ui/sonner";
+import { ReactScan } from "@/app/ui/react-scan";
 import { ScrollArea } from "@/app/ui/scroll-area";
 import WalletProvider from "@/app/ui/aptos-provider";
 import { ThemeProvider } from "@/app/ui/theme-wrapper";
@@ -31,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <ReactScan />
       <body
         className={`${geistSans.className} ${geistMono.variable} ${fontMichroma.variable} antialiased`}
       >

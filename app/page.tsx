@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import StakeDemo from "@/app/ui/stake";
 import Statistics from "@/app/ui/stats";
 import Animation from "@/app/ui/assets/star.json";
@@ -45,29 +45,17 @@ export default function Home() {
     { label: "APY", value: "4.18%" },
   ];
 
-  useEffect(() => {
+  const fetchPoolDataCallback = useCallback(async () => {
     setLoading(true);
-    const fetchData = async () => {
-      await fetchPoolData();
-    };
-
-    fetchData();
+    await fetchPoolData();
   }, [fetchPoolData, setLoading]);
 
-  useEffect(() => {
+  // Memoize the fetchAccountData function to prevent unnecessary recreations
+  const fetchAccountDataCallback = useCallback(async () => {
     if (account?.address && !isLoadingPool) {
-      const fetchData = async () => {
-        await fetchAccountData(
-          account?.address.toString(),
-          existsRewardSchedule
-        );
-        setLoading(false);
-      };
-
-      fetchData();
-    } else {
-      setLoading(false);
+      await fetchAccountData(account.address.toString(), existsRewardSchedule);
     }
+    setLoading(false);
   }, [
     account?.address,
     existsRewardSchedule,
@@ -76,13 +64,25 @@ export default function Home() {
     setLoading,
   ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchTokenData();
-    };
-
-    fetchData();
+  // Memoize the fetchTokenData function to prevent unnecessary recreations
+  const fetchTokenDataCallback = useCallback(async () => {
+    await fetchTokenData();
   }, [fetchTokenData]);
+
+  // Fetch pool data on component mount
+  useEffect(() => {
+    fetchPoolDataCallback();
+  }, [fetchPoolDataCallback]);
+
+  // Fetch account data when account or pool data changes
+  useEffect(() => {
+    fetchAccountDataCallback();
+  }, [fetchAccountDataCallback]);
+
+  // Fetch token data on component mount
+  useEffect(() => {
+    fetchTokenDataCallback();
+  }, [fetchTokenDataCallback]);
 
   return (
     <div className="flex gap-24 w-full items-start p-10 pt-12 rounded-2xl">
