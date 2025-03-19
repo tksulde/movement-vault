@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Header from "@/app/ui/header";
 import Footer from "@/app/ui/footer";
 
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/app/ui/sonner";
 import { ReactScan } from "@/app/ui/react-scan";
 import { ScrollArea } from "@/app/ui/scroll-area";
@@ -51,6 +52,7 @@ export default function RootLayout({
               <Footer />
 
               <Toaster />
+              <Analytics />
             </div>
           </WalletProvider>
         </ThemeProvider>
