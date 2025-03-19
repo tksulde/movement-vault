@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <div className="flex gap-24 w-full items-start p-10 pt-12 rounded-2xl">
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-12 w-11/12">
         <div className="text-6xl font-light relative overflow-hidden">
           Movement <span className="text-muted-foreground">Vault</span>
           <LottiePlayer
@@ -110,7 +110,7 @@ export default function Home() {
         />
         <VaultTabs connected={connected} />
       </div>
-      <div className="w-[740px] mt-12 sticky top-5">
+      <div className="w-[440px] mt-12 sticky top-5">
         <StakeDemo />
       </div>
     </div>

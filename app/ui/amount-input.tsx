@@ -51,7 +51,7 @@ export default function AmountInput({
         type="number"
         value={amount}
         onChange={(e) => handleChange(e.target.value)}
-        className="hover:bg-primary/5 dark:bg-foreground/5 bg-white  border-0 rounded-2xl focus-visible:ring-offset-0 focus-visible:ring-[0.2px] h-[120px] py-[40px] px-4"
+        className="hover:bg-primary/5 dark:bg-foreground/5 bg-white border-0 rounded-2xl focus-visible:ring-offset-0 focus-visible:ring-[0.2px] h-[120px] py-[40px] px-4"
       />
       <div className="absolute top-3 right-5">
         <div className="flex items-center border rounded-full p-1 w-7 h-7 bg-primary">
@@ -65,7 +65,7 @@ export default function AmountInput({
         </div>
       </div>
       <div className="absolute flex gap-1 bottom-4 left-4 text-xs text-muted-foreground/50">
-        <div>${Number(amount) * 0.49}</div>
+        <div>${Number(amount) * 0.446}</div>
       </div>
       <div className="absolute bottom-3 right-4 text-xs text-primary flex gap-0.5">
         <div className="py-1 text-foreground/80">
@@ -73,7 +73,7 @@ export default function AmountInput({
             <Skeleton className="h-4 w-24" />
           ) : (
             <span>
-              {balance} ${symbol}
+              {balance?.toString().slice(0, 8)} ${symbol}
             </span>
           )}
         </div>
