@@ -8,17 +8,20 @@ export default function Header() {
     <div className="mx-10 mt-3 px-6 rounded-2xl py-4 fixed top-0 left-0 bg-zinc-100 dark:bg-[#000000] right-0 z-50 flex justify-between items-center">
       <div className="flex gap-16 items-center">
         <div className="flex gap-2 text-3xl font-normal items-center font-michroma">
-          <div className="relative cursor-pointer items-center justify-center ">
+          <Link
+            href="/"
+            className="relative cursor-pointer items-center justify-center "
+          >
             <p className="text-xl font-semibold">EigenFi</p>
             <p className="absolute rounded-[5px] border border-foreground text-foreground top-[6px] -right-12 text-[10px] px-[3px] pb-0.5">
               move
             </p>
-          </div>
+          </Link>
         </div>
-        <div className="flex gap-4 w-full items-center justify-center">
+        <div className="flex ps-4 gap-6 w-full items-center justify-center">
           <DomainSelect />
           <Link href="/faucet">
-            <div className="text-foreground duration-300 ease-in-out">
+            <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
               Faucet
             </div>
           </Link>

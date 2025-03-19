@@ -58,14 +58,25 @@ export default function Faucet() {
   };
 
   return (
-    <div className="p-12">
+    <div className="p-12 flex gap-6">
       {connected && (
-        <div className="flex gap-4 w-1/2 mx-auto items-center">
-          <div>stMOVE</div>
-          <div>100 </div>
+        <div className="flex gap-4 w-1/2 items-center justify-between border py-2 px-4 rounded-md">
+          <div className="flex gap-2">
+            <div>100 </div>
+            <div>stMOVE</div>
+          </div>
           <Button onClick={mint}>Claim</Button>
         </div>
       )}
+      {/* <div className="flex gap-4 w-1/2 items-center justify-between border py-2 px-4 rounded-md">
+        <div className="flex gap-2">
+          <div>100 </div>
+          <div>lstMOVE</div>
+        </div>
+        <Button onClick={mint} disabled>
+          Claim
+        </Button>
+      </div> */}
     </div>
   );
 }
