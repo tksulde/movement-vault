@@ -1,6 +1,7 @@
 import DomainSelect from "@/app/ui/domain-select";
 import ThemeToggle from "@/app/ui/theme-toggle";
 import { WalletSelector } from "@/app/ui/wallet-connect/wallet-selector";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -14,7 +15,14 @@ export default function Header() {
             </p>
           </div>
         </div>
-        <DomainSelect />
+        <div className="flex gap-4 w-full items-center justify-center">
+          <DomainSelect />
+          <Link href="/faucet">
+            <div className="text-foreground duration-300 ease-in-out">
+              Faucet
+            </div>
+          </Link>
+        </div>
       </div>
       <div className="flex gap-3 items-center">
         <WalletSelector />

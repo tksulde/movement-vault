@@ -32,7 +32,9 @@ export function useTransactionHandler({
         toast.loading(`Processing transaction...`, { id: toastId });
         try {
           const response = await transactionFunction();
+
           if (response) {
+            console.log("Response", response);
             await aptosAction().waitForTransaction({
               transactionHash: response.hash,
             });
