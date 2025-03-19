@@ -7,7 +7,7 @@ import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 export const claimRewards = (): InputTransactionData => {
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_vault::claim_reward`,
+      function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::claim_reward`,
       functionArguments: [],
     },
   };

@@ -16,7 +16,7 @@ export const getUserStakeData = async (
   try {
     const userOnChainStakeData = await aptosAction().view<string[]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault::get_user_stake_data`,
+        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::get_user_stake_data`,
         functionArguments: [accountAddress],
       },
     });

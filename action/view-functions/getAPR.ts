@@ -8,7 +8,7 @@ export const getAPR = async (): Promise<string> => {
   try {
     const apr = await aptosAction().view<[string]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault::get_apr`,
+        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::get_apr`,
         functionArguments: [],
       },
     });

@@ -14,7 +14,7 @@ export const stake = (args: StakeTokenArguments): any => {
   return {
     sender: account.address,
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_vault::stake`,
+      function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::stake`,
       functionArguments: [amount],
     },
   };

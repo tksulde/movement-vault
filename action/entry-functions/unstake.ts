@@ -12,7 +12,7 @@ export const unstake = (args: UnstakeArguments): InputTransactionData => {
   const { amount } = args;
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_vault::unstake`,
+      function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::unstake`,
       functionArguments: [amount],
     },
   };

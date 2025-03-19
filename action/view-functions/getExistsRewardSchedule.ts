@@ -8,7 +8,7 @@ export const getExistsRewardSchedule = async (): Promise<boolean> => {
   try {
     const existsRewardSchedule = await aptosAction().view<[boolean]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault::exists_reward_schedule`,
+        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::exists_reward_schedule`,
       },
     });
     return existsRewardSchedule[0];

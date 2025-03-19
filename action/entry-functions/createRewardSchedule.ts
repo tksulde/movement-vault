@@ -15,7 +15,7 @@ export const createRewardSchedule = (
   const { rps, durationInSeconds } = args;
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_vault::create_reward_schedule`,
+      function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::create_reward_schedule`,
       functionArguments: [rps, durationInSeconds],
     },
   };

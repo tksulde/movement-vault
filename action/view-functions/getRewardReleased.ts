@@ -9,7 +9,7 @@ export const getRewardReleased = async (): Promise<number> => {
   try {
     const rewardReleased = await aptosAction().view<[number]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault::get_reward_released_so_far`,
+        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::get_reward_released_so_far`,
         functionArguments: [],
       },
     });
