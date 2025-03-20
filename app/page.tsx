@@ -103,6 +103,7 @@ export default function Home() {
           Helix Labs, Movement Vault empowers users to stake their assets while
           maintaining liquidity, optimizing yield generation, and enhancing
           capital efficiency across decentralized finance (DeFi) applications.
+          {""}
         </p>
         <Statistics
           stats={connected ? statsWithBalance : stats}
