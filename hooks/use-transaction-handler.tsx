@@ -5,6 +5,9 @@ import { _depositEthereum, _withdrawEthereum } from "@/lib/axios/_actions";
 import { useAccountStore } from "@/store/useAcountStore";
 import { usePoolStore } from "@/store/usePoolStore";
 import { toast } from "sonner";
+import { _getTransactions } from "@/lib/axios/_user_detail";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 interface UseTransactionHandlerProps {
   amount: string;
@@ -20,8 +23,11 @@ export function useTransactionHandler({
   const [isPending, startTransition] = useTransition();
   const [transactionHash, setTransactionHash] = useState("");
 
+  const { account } = useWallet();
+
   const { fetchAccountData } = useAccountStore();
   const { fetchPoolData } = usePoolStore();
+  const { updateTransactions } = useDashboardStore();
 
   const handleTransaction = useCallback(
     async (transactionFunction: () => Promise<any>) => {
@@ -71,6 +77,13 @@ export function useTransactionHandler({
               fetchAccountData(address, false);
               fetchPoolData();
               setTransactionHash(response.hash);
+              const { data } = await _getTransactions({
+                address: account?.address.toString() ?? "",
+                limit: 20,
+              });
+              if (data?.transactions?.length > 0) {
+                updateTransactions(data.transactions);
+              }
             } else {
               toast.error(ResMessage, {
                 id: toastId,
@@ -89,7 +102,15 @@ export function useTransactionHandler({
       });
       setTransactionHash("");
     },
-    [address, amount, fetchAccountData, fetchPoolData, isDeposit]
+    [
+      account?.address,
+      address,
+      amount,
+      fetchAccountData,
+      fetchPoolData,
+      isDeposit,
+      updateTransactions,
+    ]
   );
 
   return {

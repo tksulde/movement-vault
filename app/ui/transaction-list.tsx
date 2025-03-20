@@ -10,7 +10,7 @@ import {
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-interface Transaction {
+export interface Transaction {
   address: string;
   amount: string;
   createdAt: string;

@@ -1,30 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/ui/tabs";
 import { Component as Chart1 } from "@/app/ui/chart-1";
 import { Component2 as Chart2 } from "@/app/ui/chart-2";
 import TransactionList from "./transaction-list";
-import { useEffect, useState } from "react";
-import { _getTransactions } from "@/lib/axios/_user_detail";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 export default function VaultTabs({ connected }: { connected: boolean }) {
-  const { account } = useWallet();
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const { user } = useDashboardStore();
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      if (account?.address) {
-        const { data } = await _getTransactions({
-          address: account?.address.toString(),
-          limit: 10,
-        });
-        if (data) {
-          setTransactions(data.transactions);
-        }
-      }
-    };
-    fetchTransactions();
-  }, [account?.address]);
   return (
     <div className="flex flex-col">
       <Tabs defaultValue="tab-1" className="items-center relative">
@@ -51,7 +33,11 @@ export default function VaultTabs({ connected }: { connected: boolean }) {
         {connected && (
           <TabsContent value="tab-2" className="space-y-4 py-4">
             <Chart2 />
-            <TransactionList transactions={transactions} />
+            <TransactionList
+              transactions={
+                user?.transactions?.length > 0 ? user?.transactions : []
+              }
+            />
           </TabsContent>
         )}
       </Tabs>

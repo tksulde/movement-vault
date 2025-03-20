@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Transaction } from "@/app/ui/transaction-list";
 import { create } from "zustand";
 
 interface User {
@@ -11,6 +12,7 @@ interface User {
   lockedAmount: number | null;
   contestInfo: any[];
   assetPrice: string;
+  transactions: Transaction[];
 }
 
 interface DashboardStore {
@@ -25,6 +27,7 @@ interface DashboardStore {
   updateLockedAmount: (lockedAmount: number | null) => void;
   updateContestInfo: (contestInfo: any[]) => void;
   addContestInfo: (contestInfo: any) => void;
+  updateTransactions: (transactions: Transaction[]) => void;
 }
 
 export const useDashboardStore = create<DashboardStore>((set) => ({
@@ -38,7 +41,11 @@ export const useDashboardStore = create<DashboardStore>((set) => ({
     lockedAmount: null,
     contestInfo: [],
     assetPrice: "",
+    transactions: [],
   },
+  updateTransactions: (transactions: Transaction[]) =>
+    set((state) => ({ user: { ...state.user, transactions } })),
+
   setUser: (user) => set(() => ({ user })),
   updateUserId: (id) => set((state) => ({ user: { ...state.user, id } })),
   updateUserAddress: (address) =>
