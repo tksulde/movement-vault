@@ -10,6 +10,7 @@ interface User {
   totalWithdrawn: number | null;
   lockedAmount: number | null;
   contestInfo: any[];
+  assetPrice: string;
 }
 
 interface DashboardStore {
@@ -36,6 +37,7 @@ export const useDashboardStore = create<DashboardStore>((set) => ({
     totalWithdrawn: null,
     lockedAmount: null,
     contestInfo: [],
+    assetPrice: "",
   },
   setUser: (user) => set(() => ({ user })),
   updateUserId: (id) => set((state) => ({ user: { ...state.user, id } })),

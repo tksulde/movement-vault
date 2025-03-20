@@ -12,6 +12,8 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { usePoolStore } from "@/store/usePoolStore";
 import { useTokenStore } from "@/store/useTokenStore";
 import { useAccountStore } from "@/store/useAcountStore";
+import { _userDetail } from "@/lib/axios/_user_detail";
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 const LottiePlayer = dynamic(() => import("lottie-react"), { ssr: false });
 
@@ -23,6 +25,8 @@ export default function Home() {
     usePoolStore();
   const { fetchAccountData, accountTokenBalance, isLoading, setLoading } =
     useAccountStore();
+
+  const { setUser } = useDashboardStore();
 
   const stats = [
     {
@@ -83,6 +87,20 @@ export default function Home() {
   useEffect(() => {
     fetchTokenDataCallback();
   }, [fetchTokenDataCallback]);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (account?.address) {
+        const { data } = await _userDetail({
+          address: account?.address.toString(),
+        });
+        if (data) {
+          setUser(data);
+        }
+      }
+    };
+    fetchUserDetails();
+  }, [account?.address, setUser]);
 
   return (
     <div className="md:gap-24 w-full grid lg:grid-cols-6 items-start p-6 md:p-10 pt-12 rounded-2xl">

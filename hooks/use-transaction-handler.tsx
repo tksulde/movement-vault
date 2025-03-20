@@ -52,13 +52,15 @@ export function useTransactionHandler({
               result = status;
               ResMessage = message;
             } else {
-              const { status, message } = await _withdrawEthereum({
+              const { status, message, data } = await _withdrawEthereum({
                 address: address.toString(),
                 amount: Number(amount || 0),
               });
+              console.log("data", data);
               ResMessage = message;
               result = status;
             }
+            console.log(ResMessage, result, "ResMessage");
 
             if ([200, 201, 204].includes(result)) {
               toast.success(

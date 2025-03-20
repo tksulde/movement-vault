@@ -3,6 +3,7 @@ import { Input } from "@/app/ui/input";
 import { Button } from "@/app/ui/button";
 import { Skeleton } from "@/app/ui/skeleton";
 import { useCallback } from "react";
+import { useDashboardStore } from "@/store/useDashboardStore";
 
 interface AmountInputProps {
   amount: string;
@@ -40,6 +41,8 @@ export default function AmountInput({
     [onChange, balance]
   );
 
+  const { user } = useDashboardStore();
+
   return (
     <div className="relative ease-in-out duration-300 rounded-2xl">
       <div className="absolute top-3 left-4 text-sm text-foreground/80">
@@ -65,7 +68,7 @@ export default function AmountInput({
         </div>
       </div>
       <div className="absolute flex gap-1 bottom-4 left-4 text-xs text-muted-foreground/50">
-        <div>${Number(amount) * 0.446}</div>
+        <div>${Number(amount) * (Number(user?.assetPrice) ?? 1)}</div>
       </div>
       <div className="absolute bottom-3 right-4 text-xs text-primary flex gap-0.5">
         <div className="py-1 text-foreground/80">

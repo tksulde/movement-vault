@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import dayjs from "dayjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -75,3 +76,7 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith)
     ? stringToCheck
     : `${startsWith}${stringToCheck}`;
+
+export const DaySingle = ({ date }: { date: string }) => {
+  return dayjs(date).format("HH:mm:ss MMMM DD, YYYY");
+};
