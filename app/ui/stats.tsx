@@ -8,14 +8,14 @@ export default function Statistics({
   loading: boolean;
 }) {
   return (
-    <div className="flex gap-6 justify-between">
+    <div className="flex md:flex-row flex-col gap-6 justify-between">
       {loading
         ? [...Array(3)].map((_, index) => (
             <div
               key={index}
               className="flex gap-2 mt-6 text-xl text-foreground/80 font-light"
             >
-              <Skeleton className="h-[84px] w-[128px] bg-primary/10" />
+              <Skeleton className="h-[84px] w-[250px] md:w-[128px] bg-primary/10" />
             </div>
           ))
         : stats.map((stat) => (

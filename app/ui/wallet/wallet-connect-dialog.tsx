@@ -6,9 +6,9 @@ import {
 } from "@aptos-labs/wallet-adapter-react";
 
 import { Button } from "@/app/ui/button";
-import { renderEducationScreen } from "@/app/ui/wallet-connect/render-edu";
+import { renderEducationScreen } from "@/app/ui/wallet/render-edu";
 import { DialogContent, DialogHeader, DialogTitle } from "@/app/ui/dialog";
-import { WalletRow } from "@/app/ui/wallet-connect/wallet-row";
+import { WalletRow } from "@/app/ui/wallet/wallet-row";
 import {
   Collapsible,
   CollapsibleContent,

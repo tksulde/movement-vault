@@ -85,18 +85,18 @@ export default function Home() {
   }, [fetchTokenDataCallback]);
 
   return (
-    <div className="flex gap-24 w-full items-start p-10 pt-12 rounded-2xl">
-      <div className="flex flex-col gap-12 w-11/12">
-        <div className="text-6xl font-light relative overflow-hidden">
+    <div className="md:gap-24 w-full grid lg:grid-cols-6 items-start p-6 md:p-10 pt-12 rounded-2xl">
+      <div className="flex flex-col gap-12 col-span-4 w-full">
+        <div className="text-4xl sm:text-6xl font-light relative overflow-hidden">
           Movement <span className="text-muted-foreground">Vault</span>
           <LottiePlayer
             animationData={Animation}
             loop={true}
             style={{ width: "192px", height: "192px" }}
-            className="absolute -top-4 left-72"
+            className="absolute -top-4 left-0 md:left-72"
           />
         </div>
-        <p className="text-muted-foreground text-lg font-light leading-6">
+        <p className="text-muted-foreground text-base md:text-lg font-light leading-6">
           Movement Vault is a next-generation liquid staking solution designed
           for the Movement Network, enabling seamless staking, liquidity
           provisioning, and interoperability within the Move ecosystem. Built by
@@ -108,9 +108,12 @@ export default function Home() {
           stats={connected ? statsWithBalance : stats}
           loading={isLoadingPool || isLoading}
         />
+        <div className="block lg:hidden">
+          <StakeDemo />
+        </div>
         <VaultTabs connected={connected} />
       </div>
-      <div className="w-[440px] mt-12 sticky top-5">
+      <div className="max-w-[440px] mt-12 hidden lg:flex md:sticky top-5 col-span-2">
         <StakeDemo />
       </div>
     </div>

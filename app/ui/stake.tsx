@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/app/ui/button";
 import AmountInput from "@/app/ui/amount-input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/ui/tabs";
-import { WalletSelector } from "@/app/ui/wallet-connect/wallet-selector";
+import { WalletSelector } from "@/app/ui/wallet/wallet-selector";
 
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { convertAmountFromHumanReadableToOnChain } from "@aptos-labs/ts-sdk";
@@ -14,6 +14,8 @@ import { useTokenStore } from "@/store/useTokenStore";
 import { useTransactionHandler } from "@/hooks/use-transaction-handler";
 import { unstake } from "@/action/entry-functions/unstake";
 import { stake } from "@/action/entry-functions/stake";
+import { StatsSection } from "./stats-action";
+import { UserOperationsSection } from "./reward/user-operations";
 
 export default function StakeDemo() {
   const { connected, signAndSubmitTransaction, account } = useWallet();
@@ -101,13 +103,15 @@ export default function StakeDemo() {
         </TabsContent>
       </Tabs>
 
-      <div className="shadow hover:bg-primary/5 dark:bg-foreground/5 bg-white h-[240px] rounded-2xl p-4 duration-200 ease-in-out">
-        <p className="text-muted-foreground text-sm font-light leading-6">
+      <div className="shadow hover:bg-primary/5 dark:bg-foreground/5 bg-white rounded-2xl p-4 duration-200 ease-in-out">
+        {/* <p className="text-muted-foreground text-sm font-light leading-6">
           stMOVE is the liquid staked representation of MOVE tokens within the
           Movement Vault, developed by Helix Labs. When users stake MOVE in the
           vault, they receive stMOVE in return, maintaining liquidity while
           earning staking rewards.
-        </p>
+        </p> */}
+        <StatsSection />
+        <UserOperationsSection />
       </div>
 
       <div className="flex flex-col gap-2">

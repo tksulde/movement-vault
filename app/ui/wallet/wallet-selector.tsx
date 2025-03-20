@@ -13,7 +13,7 @@ import {
 
 import { Button } from "@/app/ui/button";
 import { Dialog, DialogTrigger } from "@/app/ui/dialog";
-import { ConnectWalletDialog } from "@/app/ui/wallet-connect/wallet-connect-dialog";
+import { ConnectWalletDialog } from "@/app/ui/wallet/wallet-connect-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -1,6 +1,6 @@
 import { WalletItem } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@/app/ui/button";
-import { WalletRowProps } from "@/app/ui/wallet-connect/wallet-row";
+import { WalletRowProps } from "@/app/ui/wallet/wallet-row";
 
 export function AptosConnectWalletRow({ wallet, onConnect }: WalletRowProps) {
   return (

@@ -4,10 +4,14 @@ import { FaXTwitter, FaGithub, FaDiscord, FaLinkedin } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <div className="fixed bottom-1 left-0 right-0 z-50 flex justify-between items-center px-12">
+    <div className="fixed bottom-1 left-0 right-0 z-50 flex justify-between items-center px-6 md:px-12 py-2 md:py-0">
       <p className="w-[152px] text-muted-foreground/80">All Rights Reserved</p>
 
-      <Link href="https://helixlabs.org/" target="_blank">
+      <Link
+        href="https://helixlabs.org/"
+        target="_blank"
+        className="hidden md:flex"
+      >
         <CircularText
           text="HELIX*LABS*2025*"
           onHover="goBonkers"

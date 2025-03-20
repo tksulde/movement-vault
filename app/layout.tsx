@@ -44,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <WalletProvider>
-            <div className="flex flex-col justify-center min-h-screen px-10">
+            <div className="flex flex-col justify-center min-h-screen px-4 md:px-10">
               <Header />
               <ScrollArea className="flex flex-col justify-center h-[82svh] bg-zinc-100 dark:bg-[#000000] mt-8 items-center rounded-2xl">
                 {children}
