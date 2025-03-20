@@ -45,7 +45,7 @@ export default function TransactionList({
                 className={cn(
                   "group flex items-center gap-3",
                   "p-2 rounded-lg",
-                  "hover:bg-zinc-800/50",
+                  "dark:hover:bg-zinc-800/50 hover:bg-black/5",
                   "transition-all duration-200"
                 )}
               >
@@ -61,7 +61,7 @@ export default function TransactionList({
 
                 <div className="flex-1 flex items-center justify-between min-w-0">
                   <div className="space-y-0.5">
-                    <h3 className="font-medium text-zinc-100">
+                    <h3 className="font-medium dark:text-zinc-100">
                       {transaction.id.slice(0, 8)}...
                     </h3>
                     <p className="text-[14px] text-zinc-600 dark:text-zinc-400">
