@@ -51,7 +51,10 @@ export const RewardCard: React.FC = () => {
             <div>
               <p>Your Rewards</p>
               <p className="body-md-semibold pb-2">
-                {convertAmountFromOnChainToHumanReadable(claimableRewards, 0)}
+                {convertAmountFromOnChainToHumanReadable(
+                  claimableRewards,
+                  tokenData?.decimals ?? 0
+                )}
                 {isLoadingToken ? (
                   <Skeleton className="w-16 h-5 rounded-md" />
                 ) : (

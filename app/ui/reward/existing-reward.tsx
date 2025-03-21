@@ -8,17 +8,22 @@ import { DialogTrigger } from "@/app/ui/dialog";
 
 interface ExistingRewardScheduleProps {
   rewardSchedule: any;
+  tokenData: any;
 }
 
 export const ExistingRewardSchedule: React.FC<ExistingRewardScheduleProps> = ({
   rewardSchedule,
+  tokenData,
 }) => {
   const getTotalRewardsInThePool = () => {
     const rps = parseInt(rewardSchedule?.rps ?? "0");
     const start_ts = parseInt(rewardSchedule?.start_ts ?? "0");
     const end_ts = parseInt(rewardSchedule?.end_ts ?? "0");
     return Math.ceil(
-      convertAmountFromOnChainToHumanReadable((end_ts - start_ts) * rps, 0)
+      convertAmountFromOnChainToHumanReadable(
+        (end_ts - start_ts) * rps,
+        tokenData?.decimals
+      )
     ).toLocaleString(undefined, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,

@@ -81,6 +81,7 @@ export const usePoolStore = create<PoolDataState>((set) => ({
       let rewardSchedule;
       if (existsRewardSchedule) {
         rewardSchedule = await getRewardSchedule();
+        console.log("rewardSchedule", rewardSchedule);
       }
 
       const apr = await getAPR();
@@ -88,6 +89,8 @@ export const usePoolStore = create<PoolDataState>((set) => ({
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
+
+      console.log("apr", apr);
 
       const rewardReleasedFromChain = await getRewardReleased();
       const rewardReleased = convertAmountFromOnChainToHumanReadable(

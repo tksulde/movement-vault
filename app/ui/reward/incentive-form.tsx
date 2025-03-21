@@ -45,9 +45,11 @@ export const IncentiveForm: React.FC<IncentiveFormProps> = ({
   const validateMinimalIncentiveAmount = (weeks: string) => {
     const weeksInSeconds = parseInt(weeks) * WEEKS_IN_SECONDS;
     const minimalIncentiveAmountInHumanReadable = Math.ceil(
-      convertAmountFromOnChainToHumanReadable(weeksInSeconds, 0)
+      convertAmountFromOnChainToHumanReadable(
+        weeksInSeconds,
+        tokenData?.decimals ?? 0
+      )
     );
-    // tokenData?.decimals ??
     setMinimalIncentiveAmountInHumanReadable(
       minimalIncentiveAmountInHumanReadable
     );

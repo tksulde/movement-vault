@@ -30,7 +30,7 @@ export const AddIncentivePoolDialog: React.FC = () => {
   const onAddIncentive = async () => {
     const incentiveAmountInChainUnit = convertAmountFromHumanReadableToOnChain(
       parseInt(incentiveAmount),
-      0
+      tokenData?.decimals ?? 0
     );
     const durationInSeconds = parseInt(weeks) * WEEKS_IN_SECONDS;
     const rps = Math.floor(incentiveAmountInChainUnit / durationInSeconds);
@@ -52,7 +52,10 @@ export const AddIncentivePoolDialog: React.FC = () => {
     <Dialog>
       <div className="mt-4">
         {existsRewardSchedule ? (
-          <ExistingRewardSchedule rewardSchedule={rewardSchedule} />
+          <ExistingRewardSchedule
+            rewardSchedule={rewardSchedule}
+            tokenData={tokenData}
+          />
         ) : (
           <div className="flex flex-row w-full justify-between">
             <div>
