@@ -73,7 +73,7 @@ export default function DomainSelect() {
 
 const mainnet = [
   {
-    category: "Mainnet",
+    category: "Testnet",
     items: [
       {
         id: 6,
