@@ -26,6 +26,11 @@ export default function Header() {
               Faucet
             </div>
           </Link>
+          <Link href="/litepaper.pdf" download={true}>
+            <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
+              Litepaper
+            </div>
+          </Link>
         </div>
       </div>
       <div className="flex gap-3 items-center">
