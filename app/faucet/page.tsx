@@ -29,7 +29,7 @@ export default function Faucet() {
       try {
         const res = await signAndSubmitTransaction(
           mintAsset({
-            amount: 1000,
+            amount: 100,
             decimals: 8,
           })
         );
