@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/app/ui/button";
-import { Card, CardContent } from "@/app/ui/card";
 import { aptosAction } from "@/lib/aptosAction";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { convertAmountFromOnChainToHumanReadable } from "@/lib/helpers";
@@ -9,6 +8,7 @@ import { compound } from "@/action/entry-functions/compound";
 import { Skeleton } from "@/app/ui/skeleton";
 import { useTokenStore } from "@/store/useTokenStore";
 import { useAccountStore } from "@/store/useAcountStore";
+import { AudioLines, Sparkle } from "lucide-react";
 
 export const RewardCard: React.FC = () => {
   const { signAndSubmitTransaction } = useWallet();
@@ -44,45 +44,41 @@ export const RewardCard: React.FC = () => {
   };
 
   return (
-    <Card className="rounded-3xl">
-      <CardContent className="px-5 py-5">
-        <div className="flex flex-row w-full justify-between">
-          <div className="flex flex-row gap-6">
-            <div>
-              <p>Your Rewards</p>
-              <p className="body-md-semibold pb-2">
-                {convertAmountFromOnChainToHumanReadable(
-                  claimableRewards,
-                  tokenData?.decimals ?? 0
-                )}
-                {isLoadingToken ? (
-                  <Skeleton className="w-16 h-5 rounded-md" />
-                ) : (
-                  ` ${tokenData?.symbol}`
-                )}
-              </p>
-              <p className="text-foreground/60 text-sm">
-                Stake rewards will auto claim your available rewards and stake
-                them
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <Button
-              className="border-gray border-2 flex items-center"
-              onClick={onClaimRewardsClick}
-            >
-              Claim Rewards
-            </Button>
-            <Button
-              className="border-gray border-2 flex items-center"
-              onClick={onStakeRewardsClick}
-            >
-              Stake Rewards
-            </Button>
-          </div>
+    <div className="flex flex-col w-full justify-between mt-4 space-y-4">
+      <div className="flex justify-between">
+        <p>Your Rewards</p>
+        <div className="body-md-semibold flex gap-1 items-center">
+          {convertAmountFromOnChainToHumanReadable(
+            claimableRewards,
+            tokenData?.decimals ?? 0
+          )}
+          <span className="text-muted-foreground/70 text-sm">
+            {isLoadingToken ? (
+              <Skeleton className="w-16 h-5 rounded-md" />
+            ) : (
+              ` $${tokenData?.symbol}`
+            )}
+          </span>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex justify-between w-full gap-4">
+        <Button
+          variant={"outline"}
+          onClick={onClaimRewardsClick}
+          className="w-1/2"
+        >
+          <Sparkle />
+          Claim Rewards
+        </Button>
+        <Button
+          variant={"outline"}
+          onClick={onStakeRewardsClick}
+          className="w-1/2"
+        >
+          <AudioLines />
+          Stake Rewards
+        </Button>
+      </div>
+    </div>
   );
 };

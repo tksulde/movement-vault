@@ -21,6 +21,14 @@ export default function Header() {
         </div>
         <div className="hidden md:flex ps-4 gap-6 w-full items-center justify-center">
           <DomainSelect />
+          <Link
+            target={"_blank"}
+            href="https://docs.helixlabs.org/getting-started-on-helix/eigenfi-vaults"
+          >
+            <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
+              Docs
+            </div>
+          </Link>
           <Link href="/faucet">
             <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
               Faucet
