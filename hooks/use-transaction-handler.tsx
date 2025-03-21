@@ -66,7 +66,6 @@ export function useTransactionHandler({
               ResMessage = message;
               result = status;
             }
-            console.log(ResMessage, result, "ResMessage");
 
             if ([200, 201, 204].includes(result)) {
               toast.success(

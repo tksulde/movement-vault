@@ -9,36 +9,49 @@ import { Skeleton } from "@/app/ui/skeleton";
 import { useTokenStore } from "@/store/useTokenStore";
 import { useAccountStore } from "@/store/useAcountStore";
 import { AudioLines, Sparkle } from "lucide-react";
+import { usePoolStore } from "@/store/usePoolStore";
+import { toast } from "sonner";
 
 export const RewardCard: React.FC = () => {
-  const { signAndSubmitTransaction } = useWallet();
+  const { signAndSubmitTransaction, account } = useWallet();
   const { tokenData, isLoadingToken } = useTokenStore();
-  const { claimableRewards } = useAccountStore();
+  const { claimableRewards, fetchAccountData } = useAccountStore();
+  const { fetchPoolData } = usePoolStore();
 
   const onClaimRewardsClick = async () => {
+    const toastId = toast.loading(`Processing transaction...`);
+
     try {
+      toast.loading(`Processing transaction...`, { id: toastId });
       const response = await signAndSubmitTransaction(claimRewards());
 
-      // Wait for the transaction to be commited to chain
       await aptosAction().waitForTransaction({
         transactionHash: response.hash,
       });
-      // queryClient.refetchQueries();
+      toast.success("Rewards Claimed!", { id: toastId });
+      fetchAccountData(account?.address.toString() ?? "", false);
+      fetchPoolData();
     } catch (error: any) {
+      toast.error("Failed to claim rewards", { id: toastId });
       console.log("error", error);
     }
   };
 
   const onStakeRewardsClick = async () => {
+    const toastId = toast.loading(`Processing transaction...`);
+
     try {
+      toast.loading(`Processing transaction...`, { id: toastId });
       const response = await signAndSubmitTransaction(compound());
 
-      // Wait for the transaction to be commited to chain
       await aptosAction().waitForTransaction({
         transactionHash: response.hash,
       });
-      // queryClient.refetchQueries();
+      toast.success("Rewards Claimed!", { id: toastId });
+      fetchAccountData(account?.address.toString() ?? "", false);
+      fetchPoolData();
     } catch (error: any) {
+      toast.error("Failed to claim rewards", { id: toastId });
       console.log("error", error);
     }
   };
