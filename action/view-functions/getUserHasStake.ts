@@ -10,7 +10,7 @@ export const getUserHasStake = async (
   try {
     const userHasStaked = await aptosAction().view<[boolean]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::exists_user_stake`,
+        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::exists_user_stake`,
         functionArguments: [accountAddress],
       },
     });

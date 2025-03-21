@@ -16,7 +16,7 @@ export const getStakePoolData =
     try {
       const stakePoolOnChainData = await aptosAction().view<string[]>({
         payload: {
-          function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::get_stake_pool_data`,
+          function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_stake_pool_data`,
           functionArguments: [],
         },
       });

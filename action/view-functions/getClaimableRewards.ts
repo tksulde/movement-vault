@@ -10,7 +10,7 @@ export const getClaimableRewards = async (
   try {
     const rewards = await aptosAction().view<[number]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::get_claimable_reward`,
+        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_claimable_reward`,
         functionArguments: [accountAddress],
       },
     });

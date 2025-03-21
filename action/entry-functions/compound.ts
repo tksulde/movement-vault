@@ -6,7 +6,7 @@ import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 export const compound = (): InputTransactionData => {
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_vault_stMOVE::compound`,
+      function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::compound`,
       functionArguments: [],
     },
   };
