@@ -39,6 +39,9 @@ export function ConnectWalletDialog({ close }: ConnectWalletDialogProps) {
               "Connect Wallet"
             )}
           </DialogTitle>
+          <div className="text-primary items-center flex text-sm mx-auto">
+            Currently compatible with Petra Wallet only.
+          </div>
         </DialogHeader>
 
         <div className="flex flex-col gap-3 pt-3">

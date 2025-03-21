@@ -27,13 +27,31 @@ const MobileNav = () => {
         <div className="mt-6 flex flex-col  w-full justify-between h-full">
           <div className="flex flex-col gap-2 w-full">
             <DomainSelect />
-            <div className="flex items-center">
+            <div className="flex items-start flex-col gap-3">
+              <Link
+                target={"_blank"}
+                className={`${cn(buttonVariants({ variant: "ghost" }))}`}
+                href="https://docs.helixlabs.org/getting-started-on-helix/eigenfi-vaults"
+              >
+                <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
+                  Docs
+                </div>
+              </Link>
               <Link
                 href="/faucet"
                 className={`${cn(buttonVariants({ variant: "ghost" }))}`}
               >
                 <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
                   Faucet
+                </div>
+              </Link>
+              <Link
+                href="/litepaper.pdf"
+                download={true}
+                className={`${cn(buttonVariants({ variant: "ghost" }))}`}
+              >
+                <div className="text-foreground duration-300 ease-in-out text-sm hover:text-foreground/70">
+                  Litepaper
                 </div>
               </Link>
             </div>
