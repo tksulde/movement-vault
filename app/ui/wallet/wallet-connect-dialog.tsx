@@ -40,7 +40,7 @@ export function ConnectWalletDialog({ close }: ConnectWalletDialogProps) {
             )}
           </DialogTitle>
           <div className="dark:text-primary text-black items-center flex text-sm mx-auto">
-            Currently compatible with Petra Wallet only.
+            Currently compatible with Petra Wallet & Nigthly Wallet only.
           </div>
         </DialogHeader>
 
