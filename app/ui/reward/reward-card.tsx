@@ -78,14 +78,8 @@ export const RewardCard = ({ name }: { name: string }) => {
         address: account?.address.toString() ?? "",
         amount:
           name === `stmove`
-            ? convertAmountFromHumanReadableToOnChain(
-                Number.parseFloat(claimableRewards.toString()),
-                8
-              )
-            : convertAmountFromHumanReadableToOnChain(
-                Number.parseFloat(claimableRewards2.toString()),
-                8
-              ),
+            ? claimableRewards * 10 ** 8
+            : claimableRewards2 * 10 ** 8,
         transactionHash: response.hash,
         tokenId: name === "stmove" ? "stmove" : "hstmove",
       });
