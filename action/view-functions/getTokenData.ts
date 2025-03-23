@@ -1,6 +1,6 @@
 "use server";
 
-import { FA_ADDRESS } from "@/lib/constant";
+import { FA_ADDRESS, FA_ADDRESS2 } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export interface TokenDataResponse {
@@ -11,13 +11,15 @@ export interface TokenDataResponse {
   symbol: string;
 }
 
-export const getTokenData = async (): Promise<TokenDataResponse | null> => {
+export const getTokenData = async (
+  name: string
+): Promise<TokenDataResponse | null> => {
   try {
     const onChainTokenData = await aptosAction().view<[TokenDataResponse]>({
       payload: {
         function: "0x1::fungible_asset::metadata",
         typeArguments: ["0x1::object::ObjectCore"],
-        functionArguments: [FA_ADDRESS],
+        functionArguments: [name === "stmove" ? FA_ADDRESS : FA_ADDRESS2],
       },
     });
 

@@ -4,6 +4,7 @@ import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 export type CreateRewardScheduleArguments = {
   rps: number; // the reward per seconds
   durationInSeconds: number; // the reward schedule in seconds
+  name: string;
 };
 
 /**
@@ -12,10 +13,10 @@ export type CreateRewardScheduleArguments = {
 export const createRewardSchedule = (
   args: CreateRewardScheduleArguments
 ): InputTransactionData => {
-  const { rps, durationInSeconds } = args;
+  const { rps, durationInSeconds, name } = args;
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::create_reward_schedule`,
+      function: `${MODULE_ADDRESS}::${name}::create_reward_schedule`,
       functionArguments: [rps, durationInSeconds],
     },
   };

@@ -7,7 +7,7 @@ import { getRewardReleased } from "@/action/view-functions/getRewardReleased";
 import { getRewardSchedule } from "@/action/view-functions/getRewardSchedule";
 import { getStakePoolData } from "@/action/view-functions/getStakePoolData";
 import { getTotalSupply } from "@/action/view-functions/getTotalSupply";
-import { stMOVE } from "@/lib/constant";
+import { hstMOVE } from "@/lib/constant";
 
 export interface GetRewardScheduleResponse {
   index: string;
@@ -30,7 +30,7 @@ interface PoolDataState {
   fetchPoolData: () => Promise<void>;
 }
 
-export const usePoolStore = create<PoolDataState>((set) => ({
+export const usePoolStore2 = create<PoolDataState>((set) => ({
   totalStaked: "0",
   stakingRatio: "0",
   apr: "0",
@@ -43,7 +43,7 @@ export const usePoolStore = create<PoolDataState>((set) => ({
   fetchPoolData: async () => {
     set({ isLoadingPool: true });
     try {
-      const existsRewardSchedule = await getExistsRewardSchedule(stMOVE);
+      const existsRewardSchedule = await getExistsRewardSchedule(hstMOVE);
 
       if (!existsRewardSchedule) {
         set({
@@ -59,7 +59,7 @@ export const usePoolStore = create<PoolDataState>((set) => ({
         return;
       }
 
-      const poolData = await getStakePoolData(stMOVE);
+      const poolData = await getStakePoolData(hstMOVE);
       const totalStaked = convertAmountFromOnChainToHumanReadable(
         Number.parseInt(poolData?.total_staked ?? "0"),
         8
@@ -70,7 +70,7 @@ export const usePoolStore = create<PoolDataState>((set) => ({
 
       const uniqueStakers = poolData?.unique_stakers ?? "0";
 
-      const totalSupply = await getTotalSupply("stmove");
+      const totalSupply = await getTotalSupply("hstmove");
       const stakingRatio =
         totalSupply > 0
           ? (
@@ -81,16 +81,18 @@ export const usePoolStore = create<PoolDataState>((set) => ({
 
       let rewardSchedule;
       if (existsRewardSchedule) {
-        rewardSchedule = await getRewardSchedule(stMOVE);
+        rewardSchedule = await getRewardSchedule(hstMOVE);
       }
 
-      const apr = await getAPR(stMOVE);
+      const apr = await getAPR(hstMOVE);
+      console.log("apr", apr);
+      console.log("rewardSchedule", rewardSchedule);
       const formattedAPR = Number.parseInt(apr).toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
 
-      const rewardReleasedFromChain = await getRewardReleased(stMOVE);
+      const rewardReleasedFromChain = await getRewardReleased(hstMOVE);
       const rewardReleased = convertAmountFromOnChainToHumanReadable(
         rewardReleasedFromChain ?? 0,
         8

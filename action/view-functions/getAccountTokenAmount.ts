@@ -1,10 +1,11 @@
 "use server";
 
-import { FA_ADDRESS } from "@/lib/constant";
+import { FA_ADDRESS, FA_ADDRESS2 } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export const getAccountTokenBalance = async (
-  accountAddress: string | undefined
+  accountAddress: string | undefined,
+  name: string
 ): Promise<number> => {
   if (!accountAddress) return 0;
   try {
@@ -12,7 +13,10 @@ export const getAccountTokenBalance = async (
       payload: {
         function: "0x1::primary_fungible_store::balance",
         typeArguments: ["0x1::object::ObjectCore"],
-        functionArguments: [accountAddress, FA_ADDRESS],
+        functionArguments: [
+          accountAddress,
+          name === "stmove" ? FA_ADDRESS : FA_ADDRESS2,
+        ],
       },
     });
     return balance[0];

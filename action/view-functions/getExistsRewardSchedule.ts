@@ -4,11 +4,13 @@
 import { MODULE_ADDRESS } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
-export const getExistsRewardSchedule = async (): Promise<boolean> => {
+export const getExistsRewardSchedule = async (
+  name: string
+): Promise<boolean> => {
   try {
     const existsRewardSchedule = await aptosAction().view<[boolean]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::exists_reward_schedule`,
+        function: `${MODULE_ADDRESS}::${name}::exists_reward_schedule`,
       },
     });
     return existsRewardSchedule[0];

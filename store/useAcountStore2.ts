@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
-import { REWARD_CREATOR_ADDRESS, stMOVE } from "@/lib/constant";
+import { hstMOVE, REWARD_CREATOR_ADDRESS } from "@/lib/constant";
 import { convertAmountFromOnChainToHumanReadable } from "@/lib/helpers";
 import { getAccountTokenBalance } from "@/action/view-functions/getAccountTokenAmount";
 import { getClaimableRewards } from "@/action/view-functions/getClaimableRewards";
@@ -23,7 +23,7 @@ interface AccountDataState {
   ) => Promise<void>;
 }
 
-export const useAccountStore = create<AccountDataState>((set) => ({
+export const useAccountStore2 = create<AccountDataState>((set) => ({
   hasStake: false,
   hasRewards: false,
   claimableRewards: 0,
@@ -57,14 +57,17 @@ export const useAccountStore = create<AccountDataState>((set) => ({
 
       let claimableRewards = 0;
       if (existsRewardSchedule) {
-        claimableRewards = await getClaimableRewards(accountAddress, stMOVE);
+        claimableRewards = await getClaimableRewards(accountAddress, hstMOVE);
       }
 
-      const hasStake = await getUserHasStake(accountAddress, stMOVE);
+      const hasStake = await getUserHasStake(accountAddress, hstMOVE);
 
       let accountStakeAmount = 0;
       if (hasStake) {
-        const accountStakeData = await getUserStakeData(accountAddress, stMOVE);
+        const accountStakeData = await getUserStakeData(
+          accountAddress,
+          hstMOVE
+        );
         accountStakeAmount = convertAmountFromOnChainToHumanReadable(
           parseInt(accountStakeData?.amount ?? "0"),
           8
@@ -75,7 +78,7 @@ export const useAccountStore = create<AccountDataState>((set) => ({
 
       const onChainBalance = await getAccountTokenBalance(
         accountAddress,
-        "stmove"
+        "hstmove"
       );
 
       const accountTokenBalance = convertAmountFromOnChainToHumanReadable(

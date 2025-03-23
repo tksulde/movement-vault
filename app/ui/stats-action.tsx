@@ -1,15 +1,36 @@
 import React from "react";
 import { Skeleton } from "@/app/ui/skeleton";
 import { usePoolStore } from "@/store/usePoolStore";
+import { usePoolStore2 } from "@/store/usePoolStore2";
 
 interface StatItemProps {
   title: string;
   value: string | number | undefined;
 }
 
-export const StatsSection: React.FC = () => {
-  const { stakingRatio, apr, rewardReleased, uniqueStakers, isLoadingPool } =
-    usePoolStore();
+export const StatsSection = ({ name }: { name: string }) => {
+  const store1 = usePoolStore();
+  const store2 = usePoolStore2();
+
+  let stakingRatio = null;
+  let apr = null;
+  let rewardReleased = null;
+  let uniqueStakers = null;
+  let isLoadingPool = false;
+
+  if (name === "stmove") {
+    stakingRatio = store1.stakingRatio;
+    apr = store1.apr;
+    rewardReleased = store1.rewardReleased;
+    uniqueStakers = store1.uniqueStakers;
+    isLoadingPool = store1.isLoadingPool;
+  } else {
+    stakingRatio = store2.stakingRatio;
+    apr = store2.apr;
+    rewardReleased = store2.rewardReleased;
+    uniqueStakers = store2.uniqueStakers;
+    isLoadingPool = store2.isLoadingPool;
+  }
 
   const stats: StatItemProps[] = React.useMemo(
     () => [

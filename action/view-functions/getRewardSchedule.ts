@@ -12,13 +12,13 @@ export interface RewardsScheduleReponse {
   end_ts: string;
 }
 
-export const getRewardSchedule = async (): Promise<
-  RewardsScheduleReponse | undefined
-> => {
+export const getRewardSchedule = async (
+  name: string
+): Promise<RewardsScheduleReponse | undefined> => {
   try {
     const response = await aptosAction().view<string[]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_reward_schedule`,
+        function: `${MODULE_ADDRESS}::${name}::get_reward_schedule`,
       },
     });
 

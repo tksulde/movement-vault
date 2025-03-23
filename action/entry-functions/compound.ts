@@ -3,10 +3,10 @@ import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 /**
  * Claim and stake rewards at the same operation
  */
-export const compound = (): InputTransactionData => {
+export const compound = (name: string): InputTransactionData => {
   return {
     data: {
-      function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::compound`,
+      function: `${MODULE_ADDRESS}::${name}::compound`,
       functionArguments: [],
     },
   };

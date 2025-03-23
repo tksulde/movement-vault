@@ -31,6 +31,7 @@ export default function Faucet() {
           mintAsset({
             amount: 100,
             decimals: 8,
+            name: "hstmove",
           })
         );
         console.log("res", res);
@@ -86,7 +87,7 @@ export default function Faucet() {
             <CardHeader className="text-center">
               <CardTitle className="text-3xl font-bold">Token Faucet</CardTitle>
               <CardDescription>
-                Claim test tokens for development
+                The maximum mint amount per user is 1,000 hstMOVE
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -102,11 +103,11 @@ export default function Faucet() {
                         className="w-6 h-6"
                       />
                       <div className="flex gap-2">
-                        stMOVE <span>(movement testnet):</span>
+                        hstMOVE <span>(movement testnet):</span>
                       </div>
                     </div>
                     <div className="flex gap-1">
-                      <span>100 </span> $stMOVE
+                      <span>100 </span> $hstMOVE
                     </div>
                   </div>
                   <Button onClick={mint}>Claim Staked Tokens</Button>

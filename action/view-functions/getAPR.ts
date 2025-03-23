@@ -4,11 +4,11 @@
 import { MODULE_ADDRESS } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
-export const getAPR = async (): Promise<string> => {
+export const getAPR = async (name: string): Promise<string> => {
   try {
     const apr = await aptosAction().view<[string]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_apr`,
+        function: `${MODULE_ADDRESS}::${name}::get_apr`,
         functionArguments: [],
       },
     });

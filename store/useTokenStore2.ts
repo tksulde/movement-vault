@@ -15,13 +15,13 @@ interface TokenDataState {
   fetchTokenData: () => Promise<void>;
 }
 
-export const useTokenStore = create<TokenDataState>((set) => ({
+export const useTokenStore2 = create<TokenDataState>((set) => ({
   tokenData: null,
   isLoadingToken: true,
   fetchTokenData: async () => {
     set({ isLoadingToken: true });
     try {
-      const tokenData = await getTokenData("stmove");
+      const tokenData = await getTokenData("hstmove");
       set({ tokenData, isLoadingToken: false });
     } catch (error) {
       console.error("Failed to fetch token data:", error);

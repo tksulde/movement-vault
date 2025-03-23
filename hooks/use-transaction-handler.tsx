@@ -8,17 +8,21 @@ import { toast } from "sonner";
 import { _getTransactions } from "@/lib/axios/_user_detail";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useDashboardStore } from "@/store/useDashboardStore";
+import { usePoolStore2 } from "@/store/usePoolStore2";
+import { useAccountStore2 } from "@/store/useAcountStore2";
 
 interface UseTransactionHandlerProps {
   amount: string;
   isDeposit: boolean;
   address: string;
+  name: string;
 }
 
 export function useTransactionHandler({
   amount,
   isDeposit,
   address,
+  name,
 }: UseTransactionHandlerProps) {
   const [isPending, startTransition] = useTransition();
   const [transactionHash, setTransactionHash] = useState("");
@@ -27,6 +31,10 @@ export function useTransactionHandler({
 
   const { fetchAccountData } = useAccountStore();
   const { fetchPoolData } = usePoolStore();
+
+  const { fetchPoolData: fetchHst } = usePoolStore2();
+  const { fetchAccountData: fetchHstAccount } = useAccountStore2();
+
   const { updateTransactions } = useDashboardStore();
 
   const handleTransaction = useCallback(
@@ -40,7 +48,6 @@ export function useTransactionHandler({
           const response = await transactionFunction();
 
           if (response) {
-            console.log("Response", response);
             await aptosAction().waitForTransaction({
               transactionHash: response.hash,
             });
@@ -53,16 +60,17 @@ export function useTransactionHandler({
                 address: address.toString(),
                 amount: Number(amount || 0),
                 transactionHash: response.hash,
+                tokenId: name === "stmove" ? "stmove" : "hstmove",
               });
 
               result = status;
               ResMessage = message;
             } else {
-              const { status, message, data } = await _withdrawEthereum({
+              const { status, message } = await _withdrawEthereum({
                 address: address.toString(),
                 amount: Number(amount || 0),
+                tokenId: name === "stmove" ? "stmove" : "hstmove",
               });
-              console.log("data", data);
               ResMessage = message;
               result = status;
             }
@@ -73,8 +81,14 @@ export function useTransactionHandler({
                 { id: toastId }
               );
 
-              fetchAccountData(address, false);
-              fetchPoolData();
+              if (name === "stmove") {
+                fetchAccountData(address, false);
+                fetchPoolData();
+              } else {
+                fetchHstAccount(address, false);
+                fetchHst();
+              }
+
               setTransactionHash(response.hash);
               const { data } = await _getTransactions({
                 address: account?.address.toString() ?? "",
@@ -106,8 +120,11 @@ export function useTransactionHandler({
       address,
       amount,
       fetchAccountData,
+      fetchHst,
+      fetchHstAccount,
       fetchPoolData,
       isDeposit,
+      name,
       updateTransactions,
     ]
   );

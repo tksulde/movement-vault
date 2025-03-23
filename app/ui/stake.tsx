@@ -16,23 +16,53 @@ import { unstake } from "@/action/entry-functions/unstake";
 import { stake } from "@/action/entry-functions/stake";
 import { StatsSection } from "./stats-action";
 import { UserOperationsSection } from "./reward/user-operations";
+import { useAccountStore2 } from "@/store/useAcountStore2";
+import { useTokenStore2 } from "@/store/useTokenStore2";
+import { hstMOVE, stMOVE } from "@/lib/constant";
 
-export default function StakeDemo() {
+export default function StakeDemo({ name }: { name: string }) {
   const { connected, signAndSubmitTransaction, account } = useWallet();
 
-  const { accountTokenBalance, accountStakeAmount, isLoading } =
-    useAccountStore();
-  const { tokenData, isLoadingToken } = useTokenStore();
+  const store1 = useAccountStore();
+  const store2 = useAccountStore2();
+
+  const storeToken1 = useTokenStore();
+  const storeToken2 = useTokenStore2();
+
+  let accountBalance = 0;
+  let accountAmount = 0;
+  let isLoad = false;
+
+  let token = null;
+  let isLoadToken = false;
+
+  if (name === "stmove") {
+    accountBalance = store1.accountTokenBalance;
+    accountAmount = store1.accountStakeAmount;
+    isLoad = store1.isLoading;
+
+    token = storeToken1.tokenData;
+    isLoadToken = storeToken1.isLoadingToken;
+  } else {
+    accountBalance = store2.accountTokenBalance;
+    accountAmount = store2.accountStakeAmount;
+    isLoad = store2.isLoading;
+
+    token = storeToken2.tokenData;
+    isLoadToken = storeToken2.isLoadingToken;
+  }
 
   const [isDeposit, setIsDeposit] = useState<boolean>(true);
   const [amount, setAmount] = useState<string>("");
-
   const [open, setOpen] = useState(false);
+
+  const address = account?.address?.toString() ?? "";
 
   const { handleTransaction, isPending } = useTransactionHandler({
     amount,
     isDeposit,
-    address: account?.address.toString() ?? "",
+    address,
+    name,
   });
 
   const onUnstakeClick = () =>
@@ -41,8 +71,9 @@ export default function StakeDemo() {
         unstake({
           amount: convertAmountFromHumanReadableToOnChain(
             Number.parseFloat(amount),
-            tokenData?.decimals ?? 8
+            token?.decimals ?? 8
           ),
+          name: name === `stmove` ? stMOVE : hstMOVE,
         })
       )
     );
@@ -53,9 +84,10 @@ export default function StakeDemo() {
         stake({
           amount: convertAmountFromHumanReadableToOnChain(
             Number.parseFloat(amount),
-            tokenData?.decimals ?? 8
+            token?.decimals ?? 8
           ),
           account,
+          name: name === `stmove` ? stMOVE : hstMOVE,
         })
       )
     );
@@ -85,45 +117,34 @@ export default function StakeDemo() {
         </TabsList>
         <TabsContent value="deposit">
           <AmountInput
-            isLoading={isLoadingToken || isLoading}
+            isLoading={isLoadToken || isLoad}
             amount={amount}
             onChange={setAmount}
-            balance={accountTokenBalance}
-            symbol={tokenData?.symbol ?? ""}
+            balance={accountBalance}
+            symbol={token?.symbol ?? ""}
           />
         </TabsContent>
         <TabsContent value="withdraw">
           <AmountInput
-            isLoading={isLoadingToken || isLoading}
+            isLoading={isLoadToken || isLoad}
             amount={amount}
-            symbol={tokenData?.symbol ?? ""}
+            symbol={token?.symbol ?? ""}
             onChange={setAmount}
-            balance={accountStakeAmount}
+            balance={accountAmount}
           />
         </TabsContent>
       </Tabs>
 
       <div className="shadow hover:bg-primary/5 dark:bg-foreground/5 bg-white rounded-2xl p-4 duration-200 ease-in-out">
-        {/* <p className="text-muted-foreground text-sm font-light leading-6">
-          stMOVE is the liquid staked representation of MOVE tokens within the
-          Movement Vault, developed by Helix Labs. When users stake MOVE in the
-          vault, they receive stMOVE in return, maintaining liquidity while
-          earning staking rewards.
-        </p> */}
-        <StatsSection />
-        <UserOperationsSection />
+        <StatsSection name={name} />
+        <UserOperationsSection name={name} />
       </div>
 
       <div className="flex flex-col gap-2">
         {connected ? (
           <Button
-            onClick={() => {
-              return isDeposit ? onStakeClick() : onUnstakeClick();
-            }}
-            disabled={
-              isPending ||
-              (isDeposit ? !isDeposit || !amount : isDeposit || !amount)
-            }
+            onClick={isDeposit ? onStakeClick : onUnstakeClick}
+            disabled={isPending || !amount}
           >
             {isDeposit ? "Deposit" : "Withdraw"}
           </Button>
@@ -132,9 +153,7 @@ export default function StakeDemo() {
         )}
       </div>
 
-      <div className="hidden">
-        <WalletSelector open={open} setOpen={setOpen} />
-      </div>
+      {open && <WalletSelector open={open} setOpen={setOpen} />}
     </div>
   );
 }

@@ -5,11 +5,11 @@
 import { MODULE_ADDRESS } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
-export const getRewardReleased = async (): Promise<number> => {
+export const getRewardReleased = async (name: string): Promise<number> => {
   try {
     const rewardReleased = await aptosAction().view<[number]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_reward_released_so_far`,
+        function: `${MODULE_ADDRESS}::${name}::get_reward_released_so_far`,
         functionArguments: [],
       },
     });

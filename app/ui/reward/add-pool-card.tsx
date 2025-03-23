@@ -15,14 +15,26 @@ import { useTokenStore } from "@/store/useTokenStore";
 import { useAccountStore } from "@/store/useAcountStore";
 import { usePoolStore } from "@/store/usePoolStore";
 
+import { useTokenStore2 } from "@/store/useTokenStore2";
+import { useAccountStore2 } from "@/store/useAcountStore2";
+import { usePoolStore2 } from "@/store/usePoolStore2";
+import { hstMOVE, stMOVE } from "@/lib/constant";
+
 const WEEKS_IN_SECONDS = 604800;
 
-export const AddIncentivePoolDialog: React.FC = () => {
+export const AddIncentivePoolDialog = ({ name }: { name: string }) => {
   const { signAndSubmitTransaction } = useWallet();
+
   const { tokenData } = useTokenStore();
   const { accountTokenBalance } = useAccountStore();
   const { existsRewardSchedule, rewardSchedule } = usePoolStore();
-  // const queryClient = useQueryClient();
+
+  const { tokenData: tokenData2 } = useTokenStore2();
+  const { accountTokenBalance: accountTokenBalance2 } = useAccountStore2();
+  const {
+    existsRewardSchedule: existsRewardSchedule2,
+    rewardSchedule: rewardSchedule2,
+  } = usePoolStore2();
 
   const [incentiveAmount, setIncentiveAmount] = useState<string>("");
   const [weeks, setWeeks] = useState<string>("");
@@ -30,14 +42,18 @@ export const AddIncentivePoolDialog: React.FC = () => {
   const onAddIncentive = async () => {
     const incentiveAmountInChainUnit = convertAmountFromHumanReadableToOnChain(
       parseInt(incentiveAmount),
-      tokenData?.decimals ?? 0
+      name === "stmove" ? tokenData?.decimals ?? 0 : tokenData2?.decimals ?? 0
     );
     const durationInSeconds = parseInt(weeks) * WEEKS_IN_SECONDS;
     const rps = Math.floor(incentiveAmountInChainUnit / durationInSeconds);
 
     try {
       const response = await signAndSubmitTransaction(
-        createRewardSchedule({ rps, durationInSeconds })
+        createRewardSchedule({
+          rps,
+          durationInSeconds,
+          name: name === "stmove" ? stMOVE : hstMOVE,
+        })
       );
       await aptosAction().waitForTransaction({
         transactionHash: response.hash,
@@ -51,16 +67,33 @@ export const AddIncentivePoolDialog: React.FC = () => {
   return (
     <Dialog>
       <div className="mt-4">
-        {existsRewardSchedule ? (
+        {name === "stmove" ? (
+          existsRewardSchedule ? (
+            <ExistingRewardSchedule
+              rewardSchedule={rewardSchedule}
+              tokenData={tokenData}
+            />
+          ) : (
+            <div className="flex flex-row w-full justify-between">
+              <div>
+                <p>Available {tokenData?.name} Rewards </p>
+                <p className="body-md-semibold">{accountTokenBalance}</p>
+              </div>
+              <DialogTrigger asChild>
+                <Button>Incentivize</Button>
+              </DialogTrigger>
+            </div>
+          )
+        ) : existsRewardSchedule2 ? (
           <ExistingRewardSchedule
-            rewardSchedule={rewardSchedule}
-            tokenData={tokenData}
+            rewardSchedule={rewardSchedule2}
+            tokenData={tokenData2}
           />
         ) : (
           <div className="flex flex-row w-full justify-between">
             <div>
-              <p>Available {tokenData?.name} Rewards </p>
-              <p className="body-md-semibold">{accountTokenBalance}</p>
+              <p>Available {tokenData2?.name} Rewards </p>
+              <p className="body-md-semibold">{accountTokenBalance2}</p>
             </div>
             <DialogTrigger asChild>
               <Button>Incentivize</Button>
@@ -75,10 +108,14 @@ export const AddIncentivePoolDialog: React.FC = () => {
           setWeeks={setWeeks}
           incentiveAmount={incentiveAmount}
           setIncentiveAmount={setIncentiveAmount}
-          tokenData={tokenData}
-          accountTokenBalance={accountTokenBalance}
+          tokenData={name === "stmove" ? tokenData : tokenData2}
+          accountTokenBalance={
+            name === "stmove" ? accountTokenBalance : accountTokenBalance2
+          }
           onAddIncentive={onAddIncentive}
-          existsRewardSchedule={existsRewardSchedule}
+          existsRewardSchedule={
+            name === "stmove" ? existsRewardSchedule : existsRewardSchedule2
+          }
         />
       </DialogContent>
     </Dialog>

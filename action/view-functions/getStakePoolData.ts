@@ -11,24 +11,25 @@ export interface StakePoolDataResponse {
   unique_stakers: string;
 }
 
-export const getStakePoolData =
-  async (): Promise<StakePoolDataResponse | null> => {
-    try {
-      const stakePoolOnChainData = await aptosAction().view<string[]>({
-        payload: {
-          function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_stake_pool_data`,
-          functionArguments: [],
-        },
-      });
-      const stakePoolData = {
-        fa_metadata_object: stakePoolOnChainData[0],
-        reward_store: stakePoolOnChainData[1],
-        total_staked: stakePoolOnChainData[2],
-        unique_stakers: stakePoolOnChainData[3],
-      };
+export const getStakePoolData = async (
+  name: string
+): Promise<StakePoolDataResponse | null> => {
+  try {
+    const stakePoolOnChainData = await aptosAction().view<string[]>({
+      payload: {
+        function: `${MODULE_ADDRESS}::${name}::get_stake_pool_data`,
+        functionArguments: [],
+      },
+    });
+    const stakePoolData = {
+      fa_metadata_object: stakePoolOnChainData[0],
+      reward_store: stakePoolOnChainData[1],
+      total_staked: stakePoolOnChainData[2],
+      unique_stakers: stakePoolOnChainData[3],
+    };
 
-      return stakePoolData;
-    } catch (error: any) {
-      return null;
-    }
-  };
+    return stakePoolData;
+  } catch (error: any) {
+    return null;
+  }
+};

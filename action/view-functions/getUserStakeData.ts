@@ -11,12 +11,13 @@ export interface UserStakeData {
 }
 
 export const getUserStakeData = async (
-  accountAddress: string | undefined
+  accountAddress: string | undefined,
+  name: string
 ): Promise<UserStakeData | null> => {
   try {
     const userOnChainStakeData = await aptosAction().view<string[]>({
       payload: {
-        function: `${MODULE_ADDRESS}::eigenfi_move_vault_stmove::get_user_stake_data`,
+        function: `${MODULE_ADDRESS}::${name}::get_user_stake_data`,
         functionArguments: [accountAddress],
       },
     });
