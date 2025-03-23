@@ -15,6 +15,7 @@ import { useTokenStore2 } from "@/store/useTokenStore2";
 import { usePoolStore2 } from "@/store/usePoolStore2";
 import { useAccountStore2 } from "@/store/useAcountStore2";
 import { hstMOVE, stMOVE } from "@/lib/constant";
+import { _depositEthereum } from "@/lib/axios/_actions";
 
 export const RewardCard = ({ name }: { name: string }) => {
   const { signAndSubmitTransaction, account } = useWallet();
@@ -69,9 +70,29 @@ export const RewardCard = ({ name }: { name: string }) => {
       await aptosAction().waitForTransaction({
         transactionHash: response.hash,
       });
-      toast.success("Rewards Claimed!", { id: toastId });
-      fetchAccountData(account?.address.toString() ?? "", false);
-      fetchPoolData();
+
+      const { status, message } = await _depositEthereum({
+        address: account?.address.toString() ?? "",
+        amount: name === `stmove` ? claimableRewards : claimableRewards2,
+        transactionHash: response.hash,
+        tokenId: name === "stmove" ? "stmove" : "hstmove",
+      });
+
+      if ([200, 201, 204].includes(status)) {
+        toast.success("Rewards Claimed!", { id: toastId });
+
+        if (name === "stmove") {
+          fetchAccountData(account?.address.toString() ?? "", false);
+          fetchPoolData();
+        } else {
+          fetchAccountData2(account?.address.toString() ?? "", false);
+          fetchPoolData2();
+        }
+      } else {
+        toast.error(message, {
+          id: toastId,
+        });
+      }
     } catch (error: any) {
       toast.error("Failed to claim rewards", { id: toastId });
       console.log("error", error);
@@ -85,14 +106,21 @@ export const RewardCard = ({ name }: { name: string }) => {
         <div className="body-md-semibold flex gap-1 items-center">
           {convertAmountFromOnChainToHumanReadable(
             name === "stmove" ? claimableRewards : claimableRewards2,
-            tokenData?.decimals ?? 0
+            8
           )}
           <span className="text-muted-foreground/70 text-sm">
-            {isLoadingToken || isLoadingToken2 ? (
-              <Skeleton className="w-16 h-5 rounded-md" />
-            ) : (
-              ` $${name === "stmove" ? tokenData?.symbol : tokenData2?.symbol}`
-            )}
+            {name == "stmove" &&
+              (isLoadingToken ? (
+                <Skeleton className="w-16 h-5 rounded-md" />
+              ) : (
+                ` $${tokenData?.symbol}`
+              ))}
+            {name !== "stmove" &&
+              (isLoadingToken2 ? (
+                <Skeleton className="w-16 h-5 rounded-md" />
+              ) : (
+                ` $${tokenData2?.symbol}`
+              ))}
           </span>
         </div>
       </div>
