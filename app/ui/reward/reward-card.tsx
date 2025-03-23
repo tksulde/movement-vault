@@ -2,10 +2,7 @@
 import { Button } from "@/app/ui/button";
 import { aptosAction } from "@/lib/aptosAction";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import {
-  convertAmountFromHumanReadableToOnChain,
-  convertAmountFromOnChainToHumanReadable,
-} from "@/lib/helpers";
+import { convertAmountFromOnChainToHumanReadable } from "@/lib/helpers";
 import { claimRewards } from "@/action/entry-functions/claimRewards";
 import { compound } from "@/action/entry-functions/compound";
 import { Skeleton } from "@/app/ui/skeleton";
@@ -76,10 +73,10 @@ export const RewardCard = ({ name }: { name: string }) => {
 
       const { status, message } = await _depositEthereum({
         address: account?.address.toString() ?? "",
-        amount:
-          name === `stmove`
-            ? claimableRewards * 10 ** 8
-            : claimableRewards2 * 10 ** 8,
+        amount: convertAmountFromOnChainToHumanReadable(
+          name === "stmove" ? claimableRewards : claimableRewards2,
+          8
+        ),
         transactionHash: response.hash,
         tokenId: name === "stmove" ? "stmove" : "hstmove",
       });
@@ -104,8 +101,6 @@ export const RewardCard = ({ name }: { name: string }) => {
       console.log("error", error);
     }
   };
-
-  console.log("claimableRewards", claimableRewards);
 
   return (
     <div className="flex flex-col w-full justify-between mt-4 space-y-4">
