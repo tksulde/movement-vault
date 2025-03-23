@@ -40,7 +40,7 @@ export default function StakeDemo() {
       signAndSubmitTransaction(
         unstake({
           amount: convertAmountFromHumanReadableToOnChain(
-            Number.parseInt(amount),
+            Number.parseFloat(amount),
             tokenData?.decimals ?? 8
           ),
         })
@@ -52,7 +52,7 @@ export default function StakeDemo() {
       signAndSubmitTransaction(
         stake({
           amount: convertAmountFromHumanReadableToOnChain(
-            Number.parseInt(amount),
+            Number.parseFloat(amount),
             tokenData?.decimals ?? 8
           ),
           account,
