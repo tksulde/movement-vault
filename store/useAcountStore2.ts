@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
-import { hstMOVE, REWARD_CREATOR_ADDRESS } from "@/lib/constant";
+import { hstMOVE, REWARD_CREATOR_ADDRESS2 } from "@/lib/constant";
 import { convertAmountFromOnChainToHumanReadable } from "@/lib/helpers";
 import { getAccountTokenBalance } from "@/action/view-functions/getAccountTokenAmount";
 import { getClaimableRewards } from "@/action/view-functions/getClaimableRewards";
@@ -74,7 +74,7 @@ export const useAccountStore2 = create<AccountDataState>((set) => ({
         );
       }
 
-      const isCreator = accountAddress === REWARD_CREATOR_ADDRESS;
+      const isCreator = accountAddress === REWARD_CREATOR_ADDRESS2;
 
       const onChainBalance = await getAccountTokenBalance(
         accountAddress,
