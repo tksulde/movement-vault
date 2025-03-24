@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { toast } from "sonner";
@@ -42,7 +43,6 @@ export default function Faucet() {
         console.log("err", err);
         toast.error("Failed to claim 100 stMOVE", { id: toastId });
       }
-      console.log("res", isPending);
     });
   };
 

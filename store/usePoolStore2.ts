@@ -85,8 +85,6 @@ export const usePoolStore2 = create<PoolDataState>((set) => ({
       }
 
       const apr = await getAPR(hstMOVE);
-      console.log("apr", apr);
-      console.log("rewardSchedule", rewardSchedule);
       const formattedAPR = Number.parseInt(apr).toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,

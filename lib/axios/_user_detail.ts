@@ -11,7 +11,6 @@ export const _userDetail = async ({ address }: { address: string }) => {
 
     return { data, message, status: 200 };
   } catch (e) {
-    console.log("Error in _userDetail ->", e);
     return { data: null, message: null };
   }
 };
