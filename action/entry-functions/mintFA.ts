@@ -1,7 +1,12 @@
 import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 // Internal utils
 import { convertAmountFromHumanReadableToOnChain } from "@/lib/helpers";
-import { FA_ADDRESS, MODULE_ADDRESS, MODULE_ADDRESS2 } from "@/lib/constant";
+import {
+  FA_ADDRESS,
+  FA_ADDRESS2,
+  MODULE_ADDRESS,
+  MODULE_ADDRESS2,
+} from "@/lib/constant";
 
 export type MintAssetArguments = {
   amount: number;
@@ -18,7 +23,7 @@ export const mintAsset = (args: MintAssetArguments): InputTransactionData => {
       }::eigenfi_token_minter::mint_fa`,
       typeArguments: [],
       functionArguments: [
-        name === "stmove" ? FA_ADDRESS : FA_ADDRESS,
+        name === "stmove" ? FA_ADDRESS : FA_ADDRESS2,
         convertAmountFromHumanReadableToOnChain(amount, decimals),
       ],
     },
