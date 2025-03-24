@@ -1,4 +1,4 @@
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 
 /**
@@ -7,7 +7,9 @@ import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 export const claimRewards = (name: string): InputTransactionData => {
   return {
     data: {
-      function: `${MODULE_ADDRESS}::${name}::claim_rewards`,
+      function: `${
+        name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+      }::${name}::claim_rewards`,
       functionArguments: [],
     },
   };

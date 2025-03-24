@@ -1,4 +1,4 @@
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 
 export type CreateRewardScheduleArguments = {
@@ -16,7 +16,9 @@ export const createRewardSchedule = (
   const { rps, durationInSeconds, name } = args;
   return {
     data: {
-      function: `${MODULE_ADDRESS}::${name}::create_reward_schedule`,
+      function: `${
+        name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+      }::${name}::create_reward_schedule`,
       functionArguments: [rps, durationInSeconds],
     },
   };

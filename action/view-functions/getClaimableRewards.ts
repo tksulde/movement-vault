@@ -1,6 +1,6 @@
 "use server";
 
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export const getClaimableRewards = async (
@@ -10,7 +10,9 @@ export const getClaimableRewards = async (
   try {
     const rewards = await aptosAction().view<[number]>({
       payload: {
-        function: `${MODULE_ADDRESS}::${name}::get_claimable_reward`,
+        function: `${
+          name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+        }::${name}::get_claimable_reward`,
         functionArguments: [accountAddress],
       },
     });

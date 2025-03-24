@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export interface StakePoolDataResponse {
@@ -17,7 +17,9 @@ export const getStakePoolData = async (
   try {
     const stakePoolOnChainData = await aptosAction().view<string[]>({
       payload: {
-        function: `${MODULE_ADDRESS}::${name}::get_stake_pool_data`,
+        function: `${
+          name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+        }::${name}::get_stake_pool_data`,
         functionArguments: [],
       },
     });

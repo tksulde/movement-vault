@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export interface RewardsScheduleReponse {
@@ -18,7 +18,9 @@ export const getRewardSchedule = async (
   try {
     const response = await aptosAction().view<string[]>({
       payload: {
-        function: `${MODULE_ADDRESS}::${name}::get_reward_schedule`,
+        function: `${
+          name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+        }::${name}::get_reward_schedule`,
       },
     });
 

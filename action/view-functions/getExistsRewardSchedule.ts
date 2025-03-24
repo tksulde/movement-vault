@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export const getExistsRewardSchedule = async (
@@ -10,7 +10,9 @@ export const getExistsRewardSchedule = async (
   try {
     const existsRewardSchedule = await aptosAction().view<[boolean]>({
       payload: {
-        function: `${MODULE_ADDRESS}::${name}::exists_reward_schedule`,
+        function: `${
+          name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+        }::${name}::exists_reward_schedule`,
       },
     });
     return existsRewardSchedule[0];

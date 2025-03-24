@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 
 export type StakeTokenArguments = {
   amount: number; // The TOKEN amount to stake in smallest units
@@ -16,7 +16,9 @@ export const stake = (args: StakeTokenArguments): any => {
   return {
     sender: account.address,
     data: {
-      function: `${MODULE_ADDRESS}::${name}::stake`,
+      function: `${
+        name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+      }::${name}::stake`,
       functionArguments: [amount],
     },
   };

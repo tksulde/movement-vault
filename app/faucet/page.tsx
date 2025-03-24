@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import Image from "next/image";
+import { WalletSelector } from "../ui/wallet/wallet-selector";
 
 export default function Faucet() {
   const { connected, signAndSubmitTransaction } = useWallet();
@@ -82,6 +83,7 @@ export default function Faucet() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
+          className="space-y-8"
         >
           <Card className="w-full max-w-md mx-auto bg-card text-card-foreground shadow-lg">
             <CardHeader className="text-center">
@@ -91,7 +93,7 @@ export default function Faucet() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {connected && (
+              {connected ? (
                 <div className="flex flex-col gap-3">
                   <div className="flex justify-between w-full">
                     <div className="flex gap-2">
@@ -112,7 +114,25 @@ export default function Faucet() {
                   </div>
                   <Button onClick={mint}>Claim Staked Tokens</Button>
                 </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <WalletSelector />
+                </div>
               )}
+            </CardContent>
+          </Card>
+          <Card className="w-full max-w-md mx-auto bg-card text-card-foreground shadow-lg">
+            <CardHeader>
+              <CardTitle>Disclaimer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>
+                  Please note that this is a testnet token intended for testing
+                  purposes only. It is not a mainnet token and does not carry
+                  any real-world or monetary value.
+                </li>
+              </ul>
             </CardContent>
           </Card>
         </motion.div>
@@ -123,7 +143,7 @@ export default function Faucet() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="space-y-8"
         >
-          <Card>
+          <Card className="text-foreground">
             <CardHeader>
               <CardTitle>Why Use EigenFi?</CardTitle>
             </CardHeader>
@@ -143,7 +163,7 @@ export default function Faucet() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="text-foreground">
             <CardHeader>
               <CardTitle>Getting Started</CardTitle>
             </CardHeader>

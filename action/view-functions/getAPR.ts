@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
-import { MODULE_ADDRESS } from "@/lib/constant";
+import { MODULE_ADDRESS, MODULE_ADDRESS2, stMOVE } from "@/lib/constant";
 import { aptosAction } from "@/lib/aptosAction";
 
 export const getAPR = async (name: string): Promise<string> => {
   try {
     const apr = await aptosAction().view<[string]>({
       payload: {
-        function: `${MODULE_ADDRESS}::${name}::get_apr`,
+        function: `${
+          name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
+        }::${name}::get_apr`,
         functionArguments: [],
       },
     });
