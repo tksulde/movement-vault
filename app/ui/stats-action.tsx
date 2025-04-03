@@ -47,7 +47,7 @@ export const StatsSection = ({ name }: { name: string }) => {
         value: rewardReleased,
       },
       {
-        title: "APR",
+        title: "Real Time APR",
         value: `${apr}%`,
       },
     ],
