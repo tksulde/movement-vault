@@ -9,7 +9,7 @@ export const claimRewards = (name: string): InputTransactionData => {
     data: {
       function: `${
         name === stMOVE ? MODULE_ADDRESS : MODULE_ADDRESS2
-      }::${name}::claim_rewards`,
+      }::${name}::claim_reward`,
       functionArguments: [],
     },
   };
