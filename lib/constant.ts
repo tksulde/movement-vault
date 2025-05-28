@@ -18,7 +18,7 @@ const MODULE_ADDRESS2 =
   "0x02cd70b87afb2cfd9b2ab780db2ee8d052c6559dc4f53517087fc6019a1e4b4e";
 const MODULE_ADDRESS_MOVE =
   "0x02cd70b87afb2cfd9b2ab780db2ee8d052c6559dc4f53517087fc6019a1e4b4e";
-const MOVE = "vault_token_is_move";
+const MOVE = "move_vault_v0";
 const stMOVE = "eigenfi_move_vault_stmove";
 const hstMOVE = "eigenfi_move_vault_hstmove";
 
