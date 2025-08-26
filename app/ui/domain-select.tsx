@@ -10,20 +10,17 @@ import {
   SelectValue,
 } from "@/app/ui/select";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { FaEthereum, FaBtc } from "react-icons/fa6";
 import { SiBinance, SiCardano } from "react-icons/si";
 
 export default function DomainSelect() {
-  const router = useRouter();
-
   const handleValueChange = (value: string) => {
-    const selectedDomain = domains
+    const selectedDomain = mainnet
       .flatMap((category) => category.items)
       .find((item) => item.name === value);
     if (selectedDomain?.link) {
-      router.push(selectedDomain.link);
+      window.location.href = selectedDomain.link;
     }
   };
 
@@ -89,6 +86,20 @@ const mainnet = [
           />
         ),
       },
+      {
+        id: 9,
+        name: "ICP",
+        link: "https://app.helixlabs.org",
+        icon: (
+          <Image
+            src={"/icp-logo.png"}
+            className="w-5 h-auto dark:invert-0 invert"
+            alt="icp"
+            width={20}
+            height={20}
+          />
+        ),
+      },
     ],
   },
 ];
@@ -116,20 +127,6 @@ const domains = [
   {
     category: "Non EVM",
     items: [
-      {
-        id: 9,
-        name: "ICP",
-        link: "https://icp.eigenfi.io",
-        icon: (
-          <Image
-            src={"/icp-logo.png"}
-            className="w-5 h-auto dark:invert-0 invert"
-            alt="icp"
-            width={20}
-            height={20}
-          />
-        ),
-      },
       {
         id: 2,
         name: "Cardano",
