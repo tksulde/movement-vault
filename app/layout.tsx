@@ -12,9 +12,9 @@ import { ThemeProvider } from "@/app/ui/theme-wrapper";
 import { geistMono, geistSans, fontMichroma } from "@/app/ui/assets/font";
 
 export const metadata: Metadata = {
-  title: "EigenFi - Movement Vault",
+  title: "Helix - Movement Vault",
   description:
-    "EigenFi is a web3 application that allows users to stake their tokens and earn yields on their staked assets.",
+    "Helix is a web3 application that allows users to stake their tokens and earn yields on their staked assets.",
   keywords: [
     "EigenFi",
     "Movement",
