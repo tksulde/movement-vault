@@ -47,7 +47,7 @@ export default function Home() {
       <div className="bg-background rounded-md w-full lg:flex-row flex-col flex gap-6 lg:gap-12 justify-between md:p-6">
         <div className="w-full xl:w-7/12 p-8 rounded-sm bg-background flex flex-col gap-6 justify-between">
           <GradientText>
-            <p className="text-6xl font-thin">Movement Vault</p>
+            <p className="text-6xl font-thin">Helix Vault</p>
           </GradientText>
           <div className="flex items-center gap-2 justify-between">
             <div className="flex flex-col gap-2 justify-between">
@@ -81,7 +81,7 @@ export default function Home() {
                 className="h-auto w-8 ms-2"
               />
               <div className="relative cursor-pointer items-center justify-center">
-                <p className="text-lg font-semibold ">EigenFi</p>
+                <p className="text-lg font-semibold ">Helix Vault</p>
               </div>
             </div>
             <div className="py-2 px-3 bg-zinc-100 dark:bg-black rounded-md flex flex-col gap-2">
@@ -139,7 +139,7 @@ export default function Home() {
                 className="h-auto w-8 ms-2 dark:invert-0 invert"
               />
               <div className="relative cursor-pointer items-center justify-center">
-                <p className="text-lg font-semibold ">EigenFi</p>
+                <p className="text-lg font-semibold ">Helix Vault</p>
               </div>
             </div>
             <div className="py-2 px-3 bg-zinc-100 dark:bg-black rounded-md flex flex-col gap-2">

@@ -13,7 +13,7 @@ export default function Header() {
             href="/"
             className="relative cursor-pointer items-center justify-center "
           >
-            <p className="text-xl font-semibold">EigenFi</p>
+            <p className="text-xl font-semibold">Helix</p>
             <p className="absolute sm:flex hidden rounded-[5px] border border-foreground text-foreground top-[6px] -right-12 text-[10px] px-[3px] pb-0.5">
               move
             </p>
